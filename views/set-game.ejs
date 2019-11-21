@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <meta charset="utf8">
+    </head>
+    <body>
+        <form method="post" action="#">
+                <input type="text" name="name" placeholder="entrez le nom du jeu">
+                <input type="text" name="description" placeholder="entrez la description">
+                <input type="text" name="duree" placeholder="00:00:00">
+                <button>valider</button>
+        </form>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            const socket = io('http://localhost:3000/set-game');
+            const form = document.querySelector('form');
+            form.addEventListener('submit',(e)=>{
+                e.preventDefault();
+                const data = {
+                    name: document.querySelector('input[name="name"]').value,
+                    description: document.querySelector('input[name="description"]').value,
+                    duree: document.querySelector('input[name="duree"]').value
+            }
+                socket.emit('set-game',data);
+            });
+            socket.on('set-game',(data)=>{
+                location.href="/set-level";
+            })
+        </script>
+    </body>
+</html>

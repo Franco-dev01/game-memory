@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>page d'acceuil</title>
+        <link rel="stylesheet" href="/css/all.css">
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body id="home">
+      <div class="ombre"></div>
+        <header>
+            <h1>NaN</h1>
+            <div class="user">
+                <h3><%= user.name %></h3>
+                <a href="/deconnexion">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </header>
+      <div class="big_content">
+          <h4>Games</h4>
+          <div class="games_content">
+              <% game.forEach(el => {%>
+              <a href="#" name="<%= el.name %>" class="game">
+                  <div class="game" id_game="<%= el._id %>" >
+                      <div class="affiche">
+                          <h3><%= el.name %></h3>
+                          <p><span>=====================</span> <span style="color: lime; font-weight: bolder;"><%= el.levels.length %></span> <span style="color: grey;font-weight:bolder">niveaux</span></p>
+                          <p><span>==================  </span>  <span style="color: grey"> pas encore jouer</span></p>
+                          <p><span>==================</span> <span style="color: dodgerblue">temps</span> : <span style="color:grey;font-weight: bolder"><%= el.duree %></span></p>
+                      </div>
+                      <i class="fas fa-gamepad"></i>
+                  </div>
+              </a>
+              <% }); %>
+          </div>
+      </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io('http://192.168.50.160:3000/nan_games/games');
+        const s = document.querySelectorAll('a.game');
+        for(let i = 0; i < s.length ; i++){
+            s[i].addEventListener('click',(e)=>{
+                e.preventDefault();
+                const data = {
+                    user_id: "<%= user._id %>",
+                    game_id: s[i].children[0].getAttribute('id_game')
+                };
+                console.log(data);
+                socket.emit('begin_game',data);
+            });
+        }
+        socket.on('begin_game',(data)=>{
+            location.href="/nan_games/games/"+data.game_id;
+        });
+    </script>
+    </body>
+</html>

@@ -1,0 +1,220 @@
+<html >
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Le Jeu  Javascript</title>
+    <meta name="description" content="Jeu du Memory : Reconstruire les paires d'images identiques jusqu'à la dernière" />
+    <meta name="aniki" content="index,follow" />
+    <link href='/css/mef.css' rel='stylesheet' type='text/css' />
+</head>
+<body>
+
+<div class="div_conteneur_parent">
+    <div class="div_conteneur_page">
+        <div class="div_int_page">
+            <div>
+                <div id="conteneur">
+                    <div class="colonne" id="liste">
+                        <div id="grille">
+                            <!--<div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div>
+                            <div class="case"></div> -->
+                        </div>
+                        <br /> <span style="color:#CC3300;"></span><br />
+                        <div id='progressbar4'></div>
+                        <br /><br />
+                       <!-- <span style="font-size:18px;font-weight:normal;">Votre score :<br />
+                            <div id="scrore" style="font-size:30px;"><strong></strong>/10</div>
+                            <br /><br />
+                            <div id="temps" style="font-size:20px;"></div><br />
+                            <input type="button" class="btn" value="Nouvelle partie"  onClick='window.location.reload()'/></span>
+                        </div> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+        <button class="button">
+            <p>commencer</p>
+        </button>
+</div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" language="javascript">
+
+    const socket = io('http://localhost:3000/game2');
+    let all = [];
+    let canClick = false,compt = 0,comptIndex = [],validation = 0;
+    document.querySelector('button.button').addEventListener('click',()=>{
+        document.querySelector('button.button').style.display = "none";
+        socket.emit('startgame');
+    });
+    socket.on('startgame',(images,data)=>{
+        console.log(images);
+        console.log(data);
+            Global(data.nbCase,data.params,images,data);
+    });
+    socket.on('nextlevel',(images,data)=>{
+        Global(data.nbCase,data.params,images,data);
+    });
+
+    const generation = (images,data)=>{
+        all = document.querySelectorAll('.case');
+        for(let i = 0; i < all.length; i++){
+            all[i].innerHTML = images[i];
+        }
+        let compt = 2;
+        const time = setInterval(()=>{
+            compt--;
+            if(compt === 0){
+                clearInterval(time);
+                for(let i = 0; i < all.length; i++){
+                    all[i].innerHTML = "";
+                }
+                canClick = true;
+                game(images,data);
+            }
+        },data.timeAffiche);
+    };
+
+    const game = (images,data) => {
+        for(let i = 0; i < all.length; i++){
+            all[i].addEventListener('click',()=>{
+                if(canClick && window.getComputedStyle(all[i],null).opacity === "1" && !comptIndex.includes(i)){
+                    compt++;
+                    comptIndex.push(i)
+                    all[i].style.transform = "rotateY(180deg)";
+                    all[i].innerHTML = images[i];
+                }
+                if(compt === 2){
+                    canClick = false;
+                    let dec = 2;
+                    const int = setInterval(()=>{
+                        dec--;
+                        if(dec === 0){
+                            clearInterval(int);
+                            if(images[comptIndex[0]] === images[comptIndex[1]]){
+                                all[comptIndex[0]].innerHTML = ""
+                                all[comptIndex[0]].style.opacity = "0"
+                                all[comptIndex[1]].innerHTML = ""
+                                all[comptIndex[1]].style.opacity = "0";
+                                setData()
+                                validation++;
+                                if(validation === data.findToValidate){
+                                    validation = 0;
+                                    document.querySelector('#grille').innerHTML = "";
+                                    socket.emit("nextlevel",data.niveau);
+                                }
+                            }else{
+                                all[comptIndex[0]].style.transform = "rotateY(-180deg)";
+                                all[comptIndex[0]].innerHTML = ""
+                                all[comptIndex[1]].style.transform = "rotateY(-180deg)";
+                                all[comptIndex[1]].innerHTML = ""
+                                setData()
+                            }
+                        }
+                    },300)
+                }
+            });
+        }
+    };
+
+    const setData = () => {
+        canClick = true;
+        comptIndex = [];
+        compt = 0;
+    }
+
+    function createProgressbar(id, duration, callback) {
+        // We select the div that we want to turn into a progressbar
+        var progressbar = document.getElementById(id);
+        progressbar.className = 'progressbar';
+
+        // We create the div that changes width to show progress
+        var progressbarinner = document.createElement('div');
+        progressbarinner.className = 'inner';
+
+        // Now we set the animation parameters
+        progressbarinner.style.animationDuration = duration;
+
+        // Eventually couple a callback
+        if (typeof(callback) === 'function') {
+            progressbarinner.addEventListener('animationend', callback);
+        }
+
+        // Append the progressbar to the main progressbardiv
+        progressbar.appendChild(progressbarinner);
+
+        // When everything is set up we start the animation
+        progressbarinner.style.animationPlayState = 'running';
+    }
+
+  /*  addEventListener('load', function() {
+        createProgressbar('progressbar4', '10s', function() {
+            alert("Terminer!!");
+        });
+    }); */
+
+  const addBlock = (number,params=60) => {
+      const grille = document.querySelector('#grille');
+      const numbers = info(number);
+      grille.style.width = params * numbers[0] + 120;
+      grille.style.height = params * numbers[1] + + 40;
+      for(let i = 0 ; i < number; i++){
+          if(params === 60){
+              grille.innerHTML += `<div class="case"></div>`;
+          }else{
+              grille.innerHTML += `<div class="case" style="width:${params};height:${params}"></div>`;
+          }
+
+      }
+  };
+
+  const info = (number) => {
+    const multiplesDeux = [4],multiplesQuatres = [8,12,16,20,24],multiplesHuit = [32,40,48,56,64,72],multiplesDix = [90];
+    const multiplesDouze = [108],multiplesQuartorze = [126],multiplesSeize = [144],multiplesDixHuit = [162],multiplesVingth = [180];
+    if(multiplesDeux.includes(number)){
+        return [2,2];
+    }else if(multiplesQuatres.includes(number)){
+        if(number === 20){
+            return [5,number/5]
+        }else if(number === 24){
+            return [6,number/6];
+        }else{
+            return  [4,number/4]
+        }
+    }else if(multiplesHuit.includes(number)){
+        return [8,number/8];
+    }else if(multiplesDix.includes(number)){
+        return [10,number/10];
+    }else if(multiplesDouze.includes(number)){
+        return [12,number/12];
+    }else if(multiplesQuartorze.includes(number)){
+        return [14,number/14];
+    }else if(multiplesSeize.includes(number)){
+        return[16,number/16];
+    }else if(multiplesDixHuit.includes(number)){
+        return [18,number/18];
+    }else{
+        return [20,number/20]
+    }
+  };
+
+    function Global(numbers,params,images,data){
+        addBlock(numbers,params);
+        generation(images,data);
+    }
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>NaN_test</title>
+    <style>
+        div.welcome{
+            width: 500px;
+            height: 400px;
+            background: white;
+            color: black;
+            position: fixed;
+            z-index: 1;
+            top: 20%;
+            opacity: 0;
+            left: 30%;
+            text-align:center;
+        }
+        .welcome button{
+            background: black;
+            color: white;
+            padding: 5px;
+            font-size: 12px;
+            border-radius: 25px;
+            margin-top: 80px;
+            transition: all 1s ease;
+        }
+    </style>
+</head>
+<body id="game">
+<div class="unbreakable"><%= game._id %></div>
+<div id="preloader">
+    <h2></h2>
+    <div>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div><br>
+    <p>Loading ...</p>
+</div>
+    <div class="ombre"></div>
+    <div class="welcome">
+        <h1><%= game.name %></h1>
+        <p>ce jeu est un jeu de mémoire de difficulté croissante qui se déroule sur 18 niveaux</p>
+        <p>vous devrez reproduire les différents séquences des différents niveaux</p>
+        <p><b>NB : </b> Dans certains niveaux l'ordre est requis, vous avez 45 minutes</p>
+        <button class="black">Bonne chance à vous</button>
+    </div>
+    <!-- header -->
+    <div class="header">
+        <h3><%= user.name %></h3><span>|</span><h3><%= game.name %></h3>
+    </div><br>
+    <div class="cont">
+    </div>
+    <button class="validate" style="display: none"></button>
+    <span class="go">GO</span>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script>
+        document.querySelector('.welcome').style.opacity = "1";
+        document.querySelector('.ombre').style.opacity = "0.8";
+    </script>
+</body>
+
+</html>

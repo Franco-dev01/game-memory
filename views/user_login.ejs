@@ -1,0 +1,26 @@
+<html>
+<head>
+    <meta charset="utf8">
+    <link  rel="stylesheet" href="/css/style.css">
+</head>
+<body id="index">
+<div class="container">
+    <h1>Login</h1>
+    <span class="error">vouis n'êtes pas enregistrée dans notre base de données</span>
+    <form>
+        <input type="text" name="name" placeholder="entrez votre nom" required>
+        <input type="password" name="password" maxlength="8" placeholder="entrez votre mot de passe" required>
+        <button><p class="p1">je me connecte</p><p class="p2">play now</p></button>
+        <a href="/user-register"><p class="p1">je m'enregistre</p><p class="p2">sign up now</p></a>
+    </form>
+</div>
+<div class="ombre"></div>
+<div class="anim">
+    <p><span class="text"></span> &nbsp;&nbsp;<span class="bar">|</span></p>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/loginScript.js"></script>
+</body>
+</html>

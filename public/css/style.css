@@ -1,0 +1,409 @@
+#game {
+    height: 100vh;
+    display: flex;
+    flex-flow:column;
+    background: teal;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 5px 5px 5px rgb(34, 33, 33);
+}
+
+#index {
+    background: url('../images/images.png') no-repeat;
+    background-size: cover;
+}
+#index .ombre{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.95;
+    z-index: 0;
+}
+#index h1{
+    color: white;
+    font-weight:bolder;
+    font-size: 60px;
+    font-family: "Droid Sans"
+}
+#index .error{
+    color: red;
+    display: inline-block;
+    position: relative;
+    margin-top: -25px;
+    margin-left: -400px;
+}
+
+#index .container{
+    border-left: 10px solid lime;
+    padding-left: 10px;
+    margin-top: 100px;
+    overflow: hidden;
+    width: 400px;
+    margin-left: 70px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    z-index: 1;
+}
+#index .container form{
+    width: 300px
+}
+#index .container form input{
+    border: 1px solid darkgrey;
+    background: none;
+    width: 100%;
+    padding: 5px;
+    height: 40px;
+    border-radius: 10px;
+    color: darkgrey;
+    margin: 10px;
+    transition: all 0.25s ease;
+}
+#index .container form input:focus{
+    outline: none;
+    transform: translateX(30px);
+    border: 1px solid white;
+}
+#index .container form input:focus::placeholder{
+color: white;
+}
+#index .container form a{
+    text-decoration: none;
+    margin-left: 10px;
+    height: 10px !important;
+    display: none;
+    padding: 10px;
+    vertical-align: top;
+    border-radius: 50px;
+    background: purple;
+    border: none;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+#index .container form button{
+    padding: 10px;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 50px;
+    background: purple;
+    border: none;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+    height: 30px;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+#index .container form button p.p1{
+    font-size: 13px;
+    margin-top: -2px;
+    transition: all 0.5s ease;
+}
+#index .container form a p.p1{
+    margin-top: -2px;
+    font-size: 15px;
+    transition: all 0.5s ease;
+}
+#index .container form button p.p2, #index .container form a p.p2{
+    margin-top: 20px;
+    transition: all 0.5s ease;
+}
+#index .container form a p.p2{
+    margin-top: 0px;
+    transition: all 0.5s ease;
+}
+#index .container form button:hover,#index .container form a:hover{
+    background: transparent;
+    border: 1px solid darkgrey;
+}
+#index .container form button:hover p.p1,#index .container form a:hover p.p1{
+    margin-top: -30px;
+}
+#index .container form button:hover p.p2{
+    margin-top: -1px;
+}
+#index .container form a:hover p.p2{
+    margin-top: -5px;
+    text-align: center;
+}
+#index h1::first-letter{
+    color: mediumpurple;
+}
+
+#index .anim{
+    text-align: center;
+    vertical-align: top;
+    display: inline-block;
+    width: 500px;
+    margin-left: 180px;
+    margin-top: 100px;
+    z-index: 1;
+    position: relative;
+}
+#index .anim p{
+    font-size: 68px;
+    color: white;
+    font-weight:bolder;
+    opacity: 0.8;
+}
+#index .anim p .bar{
+   animation: color 0.25s 0s ease infinite;
+}
+div.header{
+    background: white;
+    width: 700px;
+    overflow: hidden;
+    height: 40px;
+    position: fixed;
+    z-index: 0;
+    margin: 0 auto;
+    top: 0;
+}
+#preloader{
+    padding-top: 15%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.8;
+    z-index: 99999;
+}
+#preloader h2{
+    color: white;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 50px;
+}
+#preloader div {
+    margin: auto auto;
+    text-align: center;
+}
+#preloader div span{
+    padding: 0px 10px;
+    margin: 5px;
+    border-radius: 50px;
+}
+#preloader div span:nth-child(1){
+    background: orangered;
+    animation: color 0.25s 0s ease infinite;
+}
+#preloader div span:nth-child(2){
+    background: red;
+    animation: color 0.5s 0s ease infinite;
+}
+#preloader div span:nth-child(3){
+    background: dodgerblue;
+    animation: color 0.75s 0s ease infinite;
+}
+#preloader div span:nth-child(4){
+    background: white;
+    animation: color 1s 0s ease infinite;
+}
+#preloader div span:nth-child(5){
+    background: limegreen;
+    animation: color 1.25s 0s ease infinite;
+}
+#preloader p{
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+    font-size: 15px;
+}
+@keyframes color{
+    0%{opacity: 0}
+    100%{opacity: 1}
+}
+#home{
+    margin: 0;
+    padding: 0;
+    background: url('../images/images.png') no-repeat;
+    background-size: cover;
+}
+#home header{
+    background: black;
+    width: 100%;
+    height: 70px;
+    color: white;
+    position: relative;
+    z-index:1;
+}
+#home header h1{
+    display: inline-block;
+    vertical-align: top;
+    color: white;
+}
+#home header .user{
+    display: inline-block;
+    vertical-align: top;
+    float: right;
+}
+#home header .user h3{
+    display: inline-block;
+    margin-right: 10px;
+    color: white;
+}
+#home header .user a{
+    display: inline-block;
+    padding: 10px;
+    margin-right: 20px;
+    background: red !important;
+    color: white !important;
+}
+#home header .user a:hover{
+    background: white;
+    color: red;
+}
+
+#home .ombre{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.95;
+    z-index: 0;
+}
+#home .big_content{
+    position:relative;
+    z-index: 1;
+}
+#home .big_content h4{
+    font-weight: bolder;
+    font-size: 48px;
+    border-left: 5px solid mediumpurple;
+    color: white;
+    padding-left: 15px;
+    margin-left: 80px;
+}
+#home .big_content h4:first-letter{
+    color: mediumpurple;
+}
+
+#home .big_content .games_content{
+    border-left: 2px solid darkgrey;
+    margin-left: 180px;
+    padding-left: 30px;
+}
+
+#home .big_content .games_content a{
+    display: inline-block;
+    width: 300px;
+    border: 1px solid black;
+        background: #010101;
+    border-radius: 15px;
+    height: 200px;
+    transition: all 0.5s ease;
+    text-decoration: none;
+}
+#home .big_content .games_content a:hover{
+    transform: scale(1.3);
+}
+#home .big_content .games_content .affiche  h3{
+    color: white;
+    font-size: 30px;
+    text-align: center;
+}
+#home .big_content .games_content .affiche p span{
+    color: transparent;
+    font-weight: bolder;
+}
+#home .big_content .games_content i {
+    color: darkgrey;
+    z-index: 0;
+    bottom: 0;
+    position: absolute;
+    display: block;
+    font-size: 120px;
+}
+
+
+#game .cont {
+    width: 650px;
+    height: 500px;
+    overflow: hidden;
+    background-color: rgb(34, 33, 33);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-radius: 4px;
+    padding: 2%;
+    padding-bottom: 5%;
+}
+
+#game .cont .child {
+    height: 29px;
+    width: 29px;
+    background-color: white;
+    border: 1px solid darkgrey;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    display: none;
+}
+
+#game .welcome button {
+    font-size: 1.2em;
+    border-radius: 3px;
+    padding: 5px;
+    z-index: 10000;
+    background: orangered;
+    color: whitesmoke;
+    transform: scale(1.1);
+    border: 1px solid teal;
+}
+
+#game .unbreakable{
+    display: none;
+}
+#game .go{
+    font-size: 120px;
+    text-align : center;
+    position: absolute;
+    top: 40%;
+    margin: 0 auto;
+    color: lime;
+    transition: all 0.5s ease-in;
+    transform: scale(0);
+    display: none;
+    opacity: 1;
+}
+div.welcome{
+    width: 500px;
+    height: 400px;
+    background: white;
+    color: black;
+    position: fixed;
+    z-index: 1;
+    top: 20%;
+    opacity: 0;
+    left: 30%;
+    text-align:center;
+}
+.ombre{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 1;
+    z-index: 1;
+    transition: all 1s ease;
+
+}
+.welcome button{
+    background: black;
+    color: white;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 25px;
+    margin-top: 80px;
+    transition: all 1s ease;
+}
